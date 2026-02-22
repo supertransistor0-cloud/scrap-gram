@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>ScrapGram</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app-wrapper">
+    <!-- ЭКРАН 1: АВТОРИЗАЦИЯ / ПРОФИЛИ -->
+    <div id="scr-auth" class="screen active">
+      <div class="auth-content">
+        <div class="brand-zone">
+          <div class="logo-glow"><i class="fa-solid fa-atom"></i></div>
+          <h1>Scrap<span>Gram</span></h1>
+          <p>Выберите профиль для входа</p>
+        </div>
+        <div id="profiles-grid" class="profiles-grid"></div>
+        <div class="create-acc-bar">
+          <input type="text" id="nick-input" placeholder="Имя нового профиля" autocomplete="off">
+          <button class="add-btn" onclick="addProfile()"><i class="fa-solid fa-plus"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ЭКРАН 2: ОСНОВНОЕ ПРИЛОЖЕНИЕ -->
+    <div id="scr-app" class="screen">
+      <header class="app-header">
+        <div class="user-meta" onclick="toProfiles()">
+          <div class="avatar-box" id="hdr-av">?</div>
+          <div class="user-txt">
+            <b id="hdr-nick">User</b>
+            <div class="profile-switch-chip"><i class="fa-solid fa-arrows-rotate"></i><span>Сменить</span></div>
+          </div>
+        </div>
+        <button class="btn-circle-plus" onclick="openModal('mod-join')"><i class="fa-solid fa-plus"></i></button>
+      </header>
+
+      <div class="view-viewport">
+        <!-- ГЛАВНАЯ: СПИСОК КАНАЛОВ -->
+<section class="page active" id="view-home">
+ <!-- Блок Соцсетей -->
+ <div class="section-divider">
+  <h3>Ресурсы экосистемы</h3>
+ </div>
+ <div class="social-links-grid">
+  <a href="https://t.me/scrap_gram" target="_blank" class="social-card tg">
+   <i class="fa-brands fa-telegram"></i>
+   <span>Telegram</span>
+  </a>
+  <a href="https://github.com/sendox2012-debug/scrap-gram" target="_blank" class="social-card gh">
+   <i class="fa-brands fa-github"></i>
+   <span>GitHub</span>
+  </a>
+ </div>
+
+ <!-- Блок Публичных Комнат -->
+ <div class="section-divider">
+  <h3>Публичные Хабы</h3>
+  <div class="live-badge"></div>
+ </div>
+ <div id="public-rooms-grid" class="rooms-grid-cool">
+  <!-- Сюда скрипт вставит карточки -->
+ </div>
+
+ <!-- Блок Личных Комнат -->
+ <div class="section-divider">
+  <h3>Ваша активность</h3>
+ </div>
+ <div id="room-list" class="rooms-feed">
+  <div class="empty-state">Нет активных приватных сессий</div>
+ </div>
+</section>
+
+
+        <!-- ЧАТ -->
+        <section class="page" id="view-chat">
+          <div id="chat-closed" class="chat-placeholder">
+            <i class="fa-solid fa-comments"></i>
+            <p>Канал не выбран</p>
+          </div>
+
+          <div id="chat-active" class="chat-ui" style="display: none;">
+            <div class="chat-header">
+              <button class="back-link" onclick="switchView('home', document.querySelector('.nav-item'))"><i class="fa-solid fa-chevron-left"></i></button>
+              <div class="room-info">
+                <b id="active-room-name">#room</b>
+                <span class="secure-tag"><i class="fa-solid fa-shield-halved"></i> E2EE Active</span>
+              </div>
+              <button class="refresh-btn" onclick="loadMessages()"><i class="fa-solid fa-rotate"></i></button>
+            </div>
+            
+            <div id="msg-box" class="msg-box"></div>
+            <div id="upload-status" class="status-bar" style="display:none;">Обработка медиа...</div>
+
+            <div class="chat-controls">
+              <div class="input-bar">
+                <button onclick="document.getElementById('file-inp').click()"><i class="fa-solid fa-paperclip"></i></button>
+                <input type="file" id="file-inp" style="display:none">
+                <input type="text" id="msg-inp" placeholder="Написать..." autocomplete="off">
+                <button id="voice-btn" onclick="toggleRecording()"><i class="fa-solid fa-microphone"></i></button>
+                <button onclick="sendMessage()"><i class="fa-solid fa-paper-plane"></i></button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- НАВИГАЦИЯ -->
+      <nav class="bottom-nav">
+        <div class="nav-item active" onclick="switchView('home', this)"><i class="fa-solid fa-compass"></i><span>Обзор</span></div>
+        <div class="nav-item" onclick="switchView('chat', this)"><i class="fa-solid fa-message"></i><span>Чат</span></div>
+      </nav>
+    </div>
+  </div>
+
+  <!-- МОДАЛКА ВХОДА В КАНАЛ -->
+  <div id="mod-join" class="modal">
+    <div class="modal-card">
+      <h3>Вход в канал</h3>
+      <input type="text" id="j-rid" placeholder="ID канала (напр: neo-matrix)">
+      <input type="password" id="j-seed" placeholder="Пароль шифрования">
+      <div class="modal-btns">
+        <button class="btn-cancel" onclick="closeModal('mod-join')">Отмена</button>
+        <button class="btn-blue" onclick="joinRoomAction()">Войти</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
