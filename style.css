@@ -637,3 +637,138 @@ h1 span { color: var(--blue); }
 .social-links-grid a {
     margin: 10px;
 }
+/* Мелкие правки дизайна */
+.section-divider h3 {
+  margin: 10px;
+}
+
+.chat-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.btn-join-chat {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 24px;
+  background: var(--accent-color, #007bff); /* Используйте ваш основной цвет */
+  color: white;
+  border: none;
+  border-radius: 50px; /* Делаем её капсульной, как расширенный круг */
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-join-chat:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  opacity: 0.9;
+}
+
+.btn-join-chat i {
+  font-size: 1.1em;
+}
+
+/*  Конфедециальность */
+/* Секция приватности в темном стиле */
+#view-privacy {
+  padding: 20px;
+  overflow-y: auto;
+  background: #0a0a0c; /* Глубокий черный как в приложении */
+  color: #e2e8f0;
+}
+
+.privacy-content {
+  max-width: 600px;
+  margin: 0 auto;
+  padding-bottom: 80px; /* Отступ под навигацию */
+}
+
+.privacy-header {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.privacy-header i {
+  font-size: 3.5rem;
+  color: #4A90E2;
+  text-shadow: 0 0 20px rgba(74, 144, 226, 0.5); /* Свечение как у лого */
+  margin-bottom: 15px;
+}
+
+.privacy-header h2 {
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  color: #fff;
+}
+
+/* Карточки информации */
+.info-card {
+  background: #161b22; /* Темно-серый графит */
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+  border: 1px solid rgba(74, 144, 226, 0.2); /* Тонкая синяя граница */
+  transition: transform 0.3s ease;
+}
+
+.info-card:hover {
+  border-color: #4A90E2;
+  box-shadow: 0 0 15px rgba(74, 144, 226, 0.1);
+}
+
+.info-card h4 {
+  margin: 0 0 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #4A90E2; /* Синий акцент */
+  font-size: 1.1rem;
+}
+
+.info-card p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #94a3b8; /* Приглушенный текст */
+}
+
+/* Футер страницы */
+.privacy-footer {
+  text-align: center;
+  margin-top: 40px;
+  opacity: 0.6;
+  border-top: 1px solid #1e293b;
+  padding-top: 20px;
+}
+
+.privacy-footer p {
+  font-family: monospace;
+  color: #4A90E2;
+  margin-bottom: 5px;
+}
+
+/* Кнопка "Войти в чат" в стиле приложения */
+.btn-join-chat {
+  margin-top: 20px;
+  background: #4A90E2;
+  color: #fff;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(74, 144, 226, 0.4);
+  transition: 0.3s;
+}
+
+.btn-join-chat:hover {
+  background: #357ABD;
+  transform: scale(1.05);
+}
