@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+ <title>Aether P2P</title>
+ <script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+ <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+ <div class="app-container">
+  
+  <!-- ЭКРАН 1: АВТОРИЗАЦИЯ И ВЫБОР АККАУНТА -->
+  <div id="screen-auth" class="screen active">
+   <div class="auth-card">
+    <div class="brand"><i class="fa-solid fa-atom"></i> <span>Aether</span></div>
+    <div id="acc-switcher" class="acc-list"></div>
+    <div class="new-acc-input">
+     <input type="text" id="input-nick" placeholder="Новый псевдоним">
+     <button onclick="createAccount()"><i class="fa-solid fa-plus"></i></button>
+    </div>
+    <div class="external-links">
+     <a href="https://github.com"><i class="fa-brands fa-github"></i> GitHub</a>
+     <a href="https://t.me"><i class="fa-brands fa-telegram"></i> Channel</a>
+    </div>
+   </div>
+  </div>
+
+  <!-- ЭКРАН 2: ОСНОВНОЕ ПРИЛОЖЕНИЕ -->
+  <div id="screen-app" class="screen">
+   
+   <!-- СТРАНИЦА 1: ХАБ (ОБЗОР) -->
+   <main class="page active" data-page="home">
+    <div class="page-header">
+     <div class="user-pill" onclick="logout()">
+      <div class="av" id="header-av">?</div>
+      <span id="header-name">User</span>
+     </div>
+     <button class="btn-icon" onclick="openModal('modal-create')"><i class="fa-solid fa-plus"></i></button>
+    </div>
+    <h2 class="section-title">Публичные пространства</h2>
+    <div id="public-rooms" class="rooms-feed"></div>
+   </main>
+
+   <!-- СТРАНИЦА 2: ЧАТ -->
+   <main class="page" data-page="chat">
+    <div id="chat-closed" class="empty-state">
+     <i class="fa-solid fa-comment-slash"></i>
+     <p>Выберите канал или войдите по ID</p>
+     <button class="btn-main" onclick="openModal('modal-join')">Войти в канал</button>
+    </div>
+
+    <div id="chat-open" class="chat-interface" style="display: none;">
+     <div class="chat-header">
+      <button class="back-btn" onclick="closeActiveChat()"><i class="fa-solid fa-chevron-left"></i></button>
+      <div class="room-info">
+       <b id="active-room-name">#room</b>
+       <span id="active-room-status">SECURE P2P</span>
+      </div>
+     </div>
+     <div id="msg-container" class="msg-container"></div>
+     <div class="chat-input-zone">
+      <div class="input-bar">
+       <input type="text" id="msg-input" placeholder="Сообщение..." autocomplete="off">
+       <button onclick="sendMsg()"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+     </div>
+    </div>
+   </main>
+
+   <!-- СТРАНИЦА 3: ПРИВАТНОСТЬ -->
+   <main class="page" data-page="privacy">
+    <div class="privacy-box">
+     <h2>Безопасность</h2>
+     <div class="card-info">
+      <i class="fa-solid fa-shield-halved"></i>
+      <b>E2EE Шифрование</b>
+      <p>Ваши данные шифруются алгоритмом AES-256 с использованием SHA-256 хеширования ключей.</p>
+     </div>
+     <div class="card-info">
+      <i class="fa-solid fa-network-wired"></i>
+      <b>Децентрализация</b>
+      <p>Нет единой базы данных. Все сообщения хранятся в распределенной сети Gun.js.</p>
+     </div>
+    </div>
+   </main>
+
+   <!-- НИЖНЯЯ НАВИГАЦИЯ -->
+   <nav class="bottom-nav">
+    <div class="nav-item active" onclick="nav('home')"><i class="fa-solid fa-compass"></i><span>Обзор</span></div>
+    <div class="nav-item" onclick="nav('chat')"><i class="fa-solid fa-comment-dots"></i><span>Чат</span></div>
+    <div class="nav-item" onclick="nav('privacy')"><i class="fa-solid fa-shield"></i><span>Защита</span></div>
+   </nav>
+  </div>
+
+ </div>
+
+ <!-- МОДАЛКИ -->
+ <div id="modal-create" class="modal">
+  <div class="modal-card">
+   <h3>Создать канал</h3>
+   <input type="text" id="c-id" placeholder="ID канала">
+   <div class="type-picker">
+    <label><input type="radio" name="ctype" value="pub" checked><span>Публичный</span></label>
+    <label><input type="radio" name="ctype" value="priv"><span>Приватный</span></label>
+   </div>
+   <input type="password" id="c-seed" placeholder="Секретный код (для привата)">
+   <div class="modal-footer">
+    <button class="btn-text" onclick="closeModal('modal-create')">Отмена</button>
+    <button class="btn-main" onclick="actionCreate()">Создать</button>
+   </div>
+  </div>
+ </div>
+
+ <div id="modal-join" class="modal">
+  <div class="modal-card">
+   <h3>Войти в канал</h3>
+   <input type="text" id="j-id" placeholder="ID канала">
+   <input type="password" id="j-seed" placeholder="Секретный код (если есть)">
+   <div class="modal-footer">
+    <button class="btn-text" onclick="closeModal('modal-join')">Назад</button>
+    <button class="btn-main" onclick="actionJoin()">Войти</button>
+   </div>
+  </div>
+ </div>
+
+ <script src="script.js"></script>
+</body>
+</html>
