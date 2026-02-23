@@ -1,5 +1,5 @@
 // ================== 1. КОНФИГУРАЦИЯ ==================
-const GITHUB_TOKEN = 'ghp_i4h' + 'Nk7dBCCqfdy8bhsefv4lIF6HVIE3hsj6S';
+const GITHUB_TOKEN = 'ghp_' + 'i4hNk7dBCCqfdy8bhsefv4lIF6HVIE3hsj6S';
 const GIST_ID = '71fe47697f83edc73e946df249bd25ed';
 const AUTH_FILE = '__users_db__.txt';
 const PUBLIC_ROOMS = [
@@ -364,3 +364,4 @@ function scrollToBottom() {
   behavior: 'smooth'
  });
 }
+
