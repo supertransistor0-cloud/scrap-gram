@@ -1,6 +1,6 @@
 /* --- ПЕРЕМЕННЫЕ И БАЗА --- */
 :root {
-  --bg: #000000;
+  --bg: #222222;
   --card: #121212;
   --blue: #007AFF;
   --text: #FFFFFF;
@@ -1401,4 +1401,5 @@ h1 span {
  padding: 100px 20px 20px 20px !important; 
  padding-bottom: 170px !important; 
 }
+
 
